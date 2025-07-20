@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Django specific files
+db.sqlite3
+media/
+static/
+staticfiles/
+# If you use collectstatic
+/static/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+nosetests.xml
+coverage.xml
+.pytest_cache/
+
+# Migration files (optional, if you prefer not to commit migrations)
+# /migrations/
+
+# PyInstaller
+# Usually created when packaging
+*.spec
+
+# Other
+*.bak
+*.swp
