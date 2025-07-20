@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from sangrah.api.permissions import AdminOrReadOnly, ReviewUserOrReadOnly
+from sangrah.api.permissions import IsAdminOrReadOnly, IsReviewUserOrReadOnly
 from sangrah.models import Content,StreamPlatform, Review
 from sangrah.api.serializers import (ContentSerializer,
                                      StreamPlatformSerializer, 
@@ -13,7 +13,7 @@ def index(reqeust):
     return HttpResponse("<h1>Content API Center!</h1>")
 
 class ReviewList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = ReviewSerializer
     
     def get_queryset(self): # type: ignore
@@ -21,6 +21,7 @@ class ReviewList(generics.ListCreateAPIView):
         return Review.objects.filter(content=pk)
 
 class ReviewCreate(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
     
     def get_queryset(self): # type: ignore
@@ -49,20 +50,24 @@ class ReviewCreate(generics.CreateAPIView):
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [ReviewUserOrReadOnly]
+    permission_classes = [IsReviewUserOrReadOnly]
     
 class StreamPlatformListAPIView(generics.ListCreateAPIView):
+    permission_classes = [IsAdminOrReadOnly]
     queryset = StreamPlatform.objects.all().order_by('id')
     serializer_class = StreamPlatformSerializer
      
 class StreamPlatformDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAdminOrReadOnly]
     queryset = StreamPlatform.objects.all().order_by('id')
     serializer_class = StreamPlatformSerializer
     
 class ContentListAPIView(generics.ListCreateAPIView):
+    permission_classes = [IsAdminOrReadOnly]
     queryset = Content.objects.all().order_by('id')
     serializer_class = ContentSerializer
    
 class ContentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAdminOrReadOnly]
     queryset = Content.objects.all().order_by('id')
     serializer_class = ContentSerializer

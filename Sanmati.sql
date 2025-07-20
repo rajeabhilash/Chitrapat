@@ -7,6 +7,15 @@ Select * from blogger_post;
 Select * from blogger_author;
 select * from django_migrations;
 
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public'
+  AND table_type = 'BASE TABLE';
+  
+  
+SELECT * FROM AUTH_PERMISSION;
+SELECT * FROM AUTHTOKEN_TOKEN;
+SELECT * FROM AUTH_USER;
 delete from blogger_post where id=1;
 
 -- SQL to manually create the 'blogger_author' table
